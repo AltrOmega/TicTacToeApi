@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.altr.ticTacToe.api.entity.GameEntity;
 import io.altr.ticTacToe.api.service.GameService;
 import io.altr.ticTacToe.engine.Game;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class GameController {
 
+    private final Logger logInfo = LoggerFactory.getLogger(GameController.class);
     private final GameService gameService;
 
     @Autowired
@@ -37,7 +40,9 @@ public class GameController {
      */
     @PostMapping("/newGame")
     public ResponseEntity<GameEntity> createGame() {
-        return ResponseEntity.ok(gameService.createNewGame());
+        GameEntity ge = gameService.createNewGame();
+        logInfo.info("New Game created with gameId: {}", ge.getGameId());
+        return ResponseEntity.ok(ge);
     }
 
 
@@ -71,6 +76,7 @@ public class GameController {
      */
     @PutMapping("/{gameId}/restart")
     public ResponseEntity<Game> restartGame(@PathVariable Integer gameId) {
+        logInfo.info("Restart game requested for gameId: {}", gameId);
         return ResponseEntity.ok(gameService.restartGame(gameId));
     }
 
@@ -86,6 +92,7 @@ public class GameController {
      */
     @GetMapping("/{gameId}")
     public ResponseEntity<Game> getGame(@PathVariable Integer gameId) {
+        logInfo.info("Get game requested for gameId: {}", gameId);
         return ResponseEntity.ok(gameService.getGame(gameId));
     }
 
@@ -101,6 +108,7 @@ public class GameController {
      */
     @DeleteMapping("/{gameId}/delete")
     public ResponseEntity<GameEntity> deleteGame(@PathVariable Integer gameId) {
+        logInfo.info("Delete game requested for gameId: {}", gameId);
         return ResponseEntity.ok(gameService.deleteGame(gameId));
     }
 
@@ -143,6 +151,7 @@ public class GameController {
      */
     @PutMapping("/{gameId}/place")
     public ResponseEntity<Game> doPlace(@PathVariable Integer gameId, @RequestBody ObjectNode objectNode) {
+        logInfo.info("Place requested for gameId: {}", gameId);
         return ResponseEntity.ok(gameService.placeInGame(gameId, objectNode));
     }
 }
