@@ -1,6 +1,8 @@
 package io.altr.ticTacToe.engine;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.altr.ticTacToe.api.entity.GameEntity;
+
 import java.util.Optional;
 
 public class Game {
@@ -283,5 +285,24 @@ public class Game {
             if (i%3 == 0 & i != 0) sb.append('\n');
             sb.append(board[i].symbol).append(" ");
         } return sb.toString();
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Game ga = (Game)obj;
+        if (ga.tileMask != this.tileMask){
+            return false;
+        }
+
+        return true;
     }
 }

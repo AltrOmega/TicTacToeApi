@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbs:h2://memLdb;DB_CLOSE_DELAY=-1
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialectH2Dialect
+    show-sql: true
+
+  jpa.hibernate.ddl-auto: create-drop

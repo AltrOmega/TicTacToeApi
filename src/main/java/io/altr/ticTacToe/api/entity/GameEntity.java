@@ -34,4 +34,28 @@ public class GameEntity {
     public Integer getTileMask(){
         return tileMask;
     }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        GameEntity en = (GameEntity)obj;
+        if (en.gameId != this.gameId || en.tileMask != this.tileMask){
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "gameId: \"" + gameId + "\", tileMask: \"" + tileMask + "\"";
+    }
 }
